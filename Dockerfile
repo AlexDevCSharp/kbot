@@ -1,5 +1,9 @@
-FROM golang:1.21 as builder
+FROM quay.io/projectquay/golang:1.21 AS test
+WORKDIR /app
+COPY . .
+RUN go test -v ./...
 
+FROM quay.io/projectquay/golang:1.21 AS builder
 WORKDIR /go/src/app
 COPY . .
 RUN make build
